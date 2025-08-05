@@ -9,8 +9,9 @@ export default function TodosPage() {
   const [todoInput, setTodoInput] = useState("");
 
   const todosQuery = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => getTodos(),
+    // 1-1. GET : TODOs를 가져오는 쿼리
+    queryKey: ["todos"], //캐싱하는 키값
+    queryFn: () => getTodos(), // 실제 가져오는 함수
   });
 
   const createTodoMutation = useMutation({
@@ -43,7 +44,7 @@ export default function TodosPage() {
         {createTodoMutation.isLoading ? "생성중..." : "투두 생성"}
       </button>
 
-      {/* TODOS를 보여주는 부분 */}
+      {/* 1-2. TODOS를 보여주는 부분 */}
       {todosQuery.isLoading && <p>Loading...</p>}
       {todosQuery.data &&
         todosQuery.data.map((todo, index) => <p key={index}>{todo}</p>)}
